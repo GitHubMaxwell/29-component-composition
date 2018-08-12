@@ -9,13 +9,9 @@ class NoteList extends React.Component {
             <React.Fragment>
                 <h2>Note List</h2>
                 <ul>
-                    {/* <NoteItem condition = {this.props.notesArr.length > 2}notesArr = {this.props.notesArr} removeNote = {this.props.removeNote} updateContent={this.updateContent}> */}
-
-                    <NoteItem condition = {this.props.notesArr.length > 2} {...this.props} >
-
-                        <NoteUpdateForm />
+                    <NoteItem {...this.props}>
+                        <NoteUpdateForm {...this.props}/>
                     </NoteItem>
-                    {/* <NoteUpdateForm condition={this.props.notesArr.length > 0}/> */}
                 </ul>
             </React.Fragment>
         )

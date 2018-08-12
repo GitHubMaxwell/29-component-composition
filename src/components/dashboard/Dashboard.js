@@ -3,7 +3,6 @@ import NoteList from '../note-list/NoteList.js'
 import NoteCreateForm from '../note-create-form/NoteCreateForm.js'
 import uuidv1 from 'uuid/v1'
 
-
 class Dashboard extends React.Component {
     constructor(props) {
         super(props)
@@ -15,154 +14,109 @@ class Dashboard extends React.Component {
                 content: '',
                 title: '',
             },
-            notes: []
+            notes: [],
+            updateId: ''
         }
         this.addNote = this.addNote.bind(this)
         this.removeNote = this.removeNote.bind(this)
-        // this.updateTitle = this.updateTitle.bind(this)
-        // this.updateContent = this.updateContent.bind(this)
-        this.updateState = this.updateState.bind(this)
-
+        this.updateNote = this.updateNote.bind(this)
+        this.updateStatus = this.updateStatus.bind(this)
+        this.reWriteNote = this.reWriteNote.bind(this)
+        this.cancelUpdate = this.cancelUpdate.bind(this)
+        this.oldContent = this.oldContent.bind(this)
     }
 
-    updateState(event) {
-        // add "name" attributes to all the input values that match the key names here in the state
-
-        // let id = '';
-        // let completed = false;
-        // let editing= true;
-        // let title = event;
-        // console.log('updateState')
-
-        // console.log('type',event.target.type)
-
-        //first check what event type and store value in variable
-        // had event.target.type === 'checked' instead of checkbox
+    updateNote(event) {
         const val = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
-        // console.log('val',val)
-        // console.log('event.target',event.target)
-        // console.log('type',event.target.type)
-
-
-
-        //dynamically target the state's key name and value
-        // directly making changes to state
-        // cant do here i have to make a copy of the state and apply the change to that
-        // const changedState = {
-        //     [event.target.name] : val
-        // }
-
-        //pass the state change to setState function
-        // this.setState({...this.state, note: {...this.state.note,[event.target.name] : val}})
-
         this.setState({note: {...this.state.note,[event.target.name] : val}})
-
-        // this.setState(
-        //     {...this.state, note: {...this.state.note, title, editing, id, completed}}
-        // )
     }
 
-    //adjusted the below two into the dynamic one above
+    updateStatus(e) {
+        let updateId = e.target.getAttribute('name')
+        this.setState({
+            updateId
+        })
+    }
+    cancelUpdate() {
+        // needs to clear whatever temporary cache ive populated with content from notes array
+        this.setState({
+            updateId : ''
+        })
+    }
 
-    // updateTitle(event) {
-    //     let id = '';
-    //     let completed = false;
-    //     let editing= true;
-    //     let title = event;
+    oldContent() {
+        // has to be a string
+        return 'Hello';
+    }
 
-    //     this.setState(
-    //         {...this.state, note: {...this.state.note, title, editing, id, completed}}
-    //     )
-    // }
+    //on doubleclick and the opening of the updatenote the id will be appended to the state and the NoteUpdateFrom will access that per props
 
-    // updateContent(event) {
-    //     let id = '';
-    //     let completed = false;
-    //     let editing= true;
-    //     let content = event;
+    //maybe combine this with updateNote but id have to send info with it to send through a conditional in order to differentiate between the original note submission or a rewrite
+    //not getting access to the 
 
-    //     this.setState(
-    //         {...this.state, note: {...this.state.note, content, editing, id, completed}}
-    //     )
-    // }
+    //rewrite this to update the values in note and then on update button press it does the for loop stuff
+    reWriteNote(e) {
+
+        // let updateId = event.target.getAttribute("key")
+        const val = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+
+        // do i need to go up a level and spread apart notes manipulate and then rewrite to the notes
+        // reassign the value of this.state note to equal these
+        let notes = [...this.state.notes];
+        // console.log(newNotes)
+        // let targetName = e.target.name;
+
+        for(let note of notes) {
+            
+            if(note.id === this.state.updateId) {
+                // let targetName = e.target.name;
+                // console.log('target name',targetName)
+                // this.setState({
+                //     //i think i need to break apart val and reset
+                //     //{...this.state.note,[event.target.name] : val
+                //     // [e.target.name] : val
+                //     // was using event instead of e
+                //     ...note, [e.target.name] : val
+                // })
+                //,()=>{console.log(note)}
+                // needs to be an equal sign because im targeting a special position in the object in the array and reassigning its value
+                note[e.target.name] = val
+                // below was trying to 
+                // note.targetName = val
+                this.setState({notes});
+            }
+        }
+    }
 
     addNote() {
-        //dont want to use the current one / make a copy and manipulate that
         let id = uuidv1();
-        // let completed = true;
-        // let editing= false;
         let newNote = {...this.state.note, id}
-        //add the new note into our array
-
-
-        // this.setState(
-
-            // {...this.state, 
-            // note: {...this.state.note, id, editing, completed}, 
-            // notes : this.state.notes.push(this.state.note)}, () => {console.log(this.state)}
-            // not push because push returns the length value
-            // we dont want to 
-        // )
-
-        // want all the old array
-        // first argument is always previous state and second argument is props?? and you can name them whatever
-        // have to put in return and wrap in curly braces
-        // setState expects an object so the goal of the function should be to reutrn an object
-        // setState can take a CB (a console log if you want to grab the exact state at the time of setting) as a second argument 
-        // this.setState((prevState) => {
-        //     return {notes : [...prevState.notes, newNote]}
-        // }, () => console.log(this.state))
-        //the below is equivalent
         this.setState({notes : [...this.state.notes, newNote]})
     }
 
     removeNote(note) {
-        // removes a note from state.notes based on its id
-        // might not have to do note.id but just note
-        // console.log('removeNote')
         let newArr = [...this.state.notes]
-
         let index;
-        // console.log('index',index)
 
         for ( let i of this.state.notes) {
           if(i['id'] === note) {
             index = newArr.indexOf(i)
-            // index = this.state.notes.indexOf(i)
           }
         }
-        // console.log('INDEX',index)
-
-        // let notes = this.state.notes.splice(index, 1)
-        // let notes = this.state.notes.splice(0, note)
-        // let newArr = this.state.notes.splice(index, 1)
         newArr.splice(index,1)
-        // console.log('newArr',newArr)
-
-        // console.log('SPLICE',notes)
-
-        // this.setState((prevState) => {
-        //     return {notes : [...prevState.notes, newNote]}
-        // }, () => console.log(this.state))
-
         this.setState(() => ({
             notes: newArr
         }))
-          
-
-        // this.setState({
-        //     notes
-        // })
-        // console.log('DELETE after',notes)
-
     }
     render() {
         return (
             <React.Fragment>
                 <h2>Dashboard</h2>
-                <NoteCreateForm updateState={this.updateState} updateContent={this.updateContent} updateTitle={this.updateTitle} addNote={this.addNote} />
 
-                <NoteList notesArr={this.state.notes} removeNote={this.removeNote} updateContent={this.updateContent}/>
+                <NoteCreateForm updateNote={this.updateNote} addNote={this.addNote} />
+
+                <NoteList notesArr={this.state.notes} removeNote={this.removeNote} updateNote={this.updateNote} updateId={this.state.updateId} updateStatus={this.updateStatus} reWriteNote={this.reWriteNote} addNote={this.addNote} cancelUpdate={this.cancelUpdate} oldContent={this.oldContent}/>
+
             </React.Fragment>
         )
     }
