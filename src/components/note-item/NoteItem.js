@@ -22,16 +22,16 @@ class NoteItem extends React.Component {
         this.editView = this.editView.bind(this)
         // this.expandUpdatePanel = this.expandUpdatePanel.bind(this)
     }
-    removeItem(event) {
-        console.log('Delete Note',event.target.name)
-        event.preventDefault();
-        let id = event.target.name
+    removeItem(e) {
+        // console.log('Delete Note',e.target.name)
+        e.preventDefault();
+        let id = e.target.name
         this.props.removeNote(id);
     }
-    editView(event) {
+    editView(e) {
         // console.log('event target name',event.target.getAttribute("name"))
         //forgot to put paranthesis on updateStatus
-        this.props.updateStatus(event)
+        this.props.updateMode(e)
         // this.expandUpdatePanel()
     }
     // expandUpdatePanel() {
