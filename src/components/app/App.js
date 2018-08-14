@@ -4,16 +4,7 @@ import Landing from '../landing/Landing.js'
 import Dashboard from '../dashboard/Dashboard.js'
 import '../../style/main.scss'
 
-/*
-    The App component should manage the frontend routes and have a navbar
-    the / route should display the Landing component
-    the /dashboard route should display the Dashboard component
-
-*/
-class App extends React.Component {
-    constructor(props) {
-        super(props)
-    }
+export default class App extends React.Component {
 
     render() {
         return (
@@ -35,5 +26,3 @@ class App extends React.Component {
         )
     }
 }
-
-export default App;

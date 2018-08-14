@@ -1,26 +1,37 @@
-/*
-Create a NoteUpdateForm component that inherits a note through props and onSubmit is able to update the App's state with an updated note.
-*/
-
 import React from 'react'
 
 export default class NoteUpdateForm extends React.Component {
-    constructor(props) {
+    constructor(props){
         super(props)
+        this.handleChange = this.handleChange.bind(this);
+        this.handleUpdate = this.handleUpdate.bind(this);
     }
 
-    handleSubmit = event => {
-        console.log('NoteUpdateForm handleSubmit')
-        this.props.updateContent();
+    handleChange(e) {
+        e.preventDefault();
+        this.props.updateNote(e);
+    }
+    handleUpdate(e) {
+        e.preventDefault();
+        this.props.addNote();
+        document.getElementById('form').reset();
     }
 
     render() {
         return (
-            // <h2 onClick={this.handleSubmit}>NoteUpdateForm</h2>
             <React.Fragment>
-            {/* <textarea onChange={this.handleContent}></textarea>
-            <button>Submit</button> */}
             <h2>Update</h2>
+            <form id="form" onSubmit={this.handleUpdate} onChange={this.handleChange}>
+                
+                <label>Note Title:</label>
+                <input name="title" type="text" />
+                <label>Note Content:</label>
+                <textarea name="content" ></textarea>
+                <input name="editing" type="checkbox" />
+                <input name="completed" type="checkbox" />
+                <button>Update</button>
+                </form>
+            <input onClick={()=>{this.props.cancelUpdate()}}type="button" value="cancel"/>
             </React.Fragment>
         )
     }
