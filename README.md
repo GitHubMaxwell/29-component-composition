@@ -1,8 +1,8 @@
-![cf](http://i.imgur.com/7v5ASc8.png) 29: To Do
+![cf](http://i.imgur.com/7v5ASc8.png) 29: To Do [![Build Status](https://travis-ci.com/GitHubMaxwell/29-component-composition.svg?branch=max4-lab29)](https://travis-ci.com/GitHubMaxwell/29-component-composition)
 ===
 
-Travis:
-Github: 
+Travis: https://travis-ci.com/GitHubMaxwell/29-component-composition
+Github PR: https://github.com/GitHubMaxwell/29-component-composition/pull/2
 
 ## Usage
   * fork and clone
