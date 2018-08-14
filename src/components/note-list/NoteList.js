@@ -2,7 +2,7 @@ import React from 'react'
 import NoteItem from '../note-item/NoteItem.js'
 import NoteUpdateForm from '../note-update-form/NoteUpdateForm.js';
 
-class NoteList extends React.Component {
+export default class NoteList extends React.Component {
 
     render() {
         return (
@@ -17,5 +17,3 @@ class NoteList extends React.Component {
         )
     }
 }
-
-export default NoteList;
