@@ -26,33 +26,18 @@ export default class Dashboard extends React.Component {
     }
 
     updateNote(e) {
-        // console.log('name',e.target.name)
-        // console.log('value',e.target.value)
-        // console.log('type',e.target.type)
-
         const val = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
         this.setState({note: {...this.state.note,[e.target.name] : val}})
     }
 
     updateMode(e) {
-        // console.log('event target', e.target.getAttribute('name'))
-        // console.log('event target name', e.target.name)
-        // console.log('event target name', e.target.id)
-
-
-        // let updateId = e.target.getAttribute('name')
-        // let updateId = e.target.name
         let updateId = e.target.id
-
-
-        // console.log('updateId', updateId)
-
         this.setState({
             updateId
         })
-        // need to do this in a callback back in NoteUpdateForm?
         this.populateNoteObj(updateId);
     }
+
     cancelUpdate() {
         let id = '';
         let editing = false;
@@ -77,12 +62,10 @@ export default class Dashboard extends React.Component {
     addNote() {
         let id;
         if(!this.state.updateId){
-            // console.log('no update id')
             id = uuidv1();
             let newNote = {...this.state.note, id}
             this.setState({notes : [...this.state.notes, newNote]})
         } else {
-            // console.log('update id')
             id = this.state.updateId
             let newArr = this.state.notes.map( note => {
                 if(note.id === this.state.updateId){
@@ -97,20 +80,24 @@ export default class Dashboard extends React.Component {
         }
     }
 
-    removeNote(note) {
-        //could [...state.notes],filter
-
-        let newArr = [...this.state.notes]
-        let index;
-        for ( let i of this.state.notes) {
-          if(i['id'] === note) {
-            index = newArr.indexOf(i)
-          }
-        }
-        newArr.splice(index,1)
-        this.setState(() => ({
-            notes: newArr
-        }))
+    removeNote(id) {
+        let notes = this.state.notes.filter((note) => {
+            return note.id !== id
+        })
+        this.setState(() => ({notes}))
+        
+        // refactor to use FILTER method
+        // let newArr = [...this.state.notes]
+        // let index;
+        // for ( let i of this.state.notes) {
+        //   if(i['id'] === note) {
+        //     index = newArr.indexOf(i)
+        //   }
+        // }
+        // newArr.splice(index,1)
+        // this.setState(() => ({
+        //     notes: newArr
+        // }))
     }
     render() {
         return (
