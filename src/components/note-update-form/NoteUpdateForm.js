@@ -8,7 +8,7 @@ export default class NoteUpdateForm extends React.Component {
     }
 
     handleChange(e) {
-        e.preventDefault();
+        // e.preventDefault();
         this.props.updateNote(e);
     }
     handleUpdate(e) {

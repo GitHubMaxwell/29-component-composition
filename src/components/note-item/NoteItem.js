@@ -7,7 +7,7 @@ export default class NoteItem extends React.Component {
         this.editView = this.editView.bind(this)
     }
     removeItem(e) {
-        e.preventDefault();
+        // e.preventDefault();
         let id = e.target.name
         this.props.removeNote(id);
     }
@@ -20,7 +20,7 @@ export default class NoteItem extends React.Component {
             <React.Fragment>
                 {
                     this.props.notesArr.map((note) =>
-                        <li className="note" name={note.id} key={note.id} onDoubleClick={this.editView}>
+                        <li className="note" name={note.id} id={note.id} key={note.id} onDoubleClick={this.editView}>
                             <h3>{note.title}</h3>
                             <p>{note.content}</p>
                             <input type="button" onClick={this.removeItem} name={note.id} value="delete"/>
