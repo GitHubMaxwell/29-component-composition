@@ -26,13 +26,10 @@ describe('NoteItem', () => {
                 type : "text",
             }
         }
-        // console.log('NOTES ARRAY: ',dashInstance.state.notes)
         const noteCreateForm = dashboard.find('NoteCreateForm').first()
         noteCreateForm.props().updateNote(e)
         noteCreateForm.props().addNote()
-        // console.log('NOTES ARRAY: ',dashInstance.state.notes)
 
-        //test to make sure the notes array has the new item that we will remove
         expect(dashboard.state().note.title).toBe("REMOVE");
         expect(dashboard.state().note.id).toBeDefined();
         expect(dashboard.state().notes.length).toBe(1);
@@ -41,14 +38,13 @@ describe('NoteItem', () => {
         const noteItem = shallow(<NoteItem removeNote={dashInstance.removeNote} updateNote={dashInstance.updateNote} notesArr={dashInstance.state.notes}/>)
         const itemInstance = noteItem.instance();
 
-        const event = {
-            target : {
-                name : dashboard.state().notes[0].id
-            }
-        }
-        // remember to put .props to access the method
-        itemInstance.props.removeNote(event)
-        // final test to see that item was removed
+        // const event = {
+        //     target : {
+        //         name : dashboard.state().notes[0].id
+        //     }
+        // }
+        
+        itemInstance.props.removeNote(dashboard.state().notes[0].id)
         expect(dashboard.state().notes.length).toBe(0);
     })
 })

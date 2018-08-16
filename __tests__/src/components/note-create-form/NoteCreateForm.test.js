@@ -1,15 +1,11 @@
 // Test your onChange handler
 // Test your onSubmit handler
 import React from 'react'
-// import renderer from 'react-test-renderer';
-// import NoteCreateForm from '../../../../src/components/note-create-form/NoteCreateForm.js'
 import Dashboard from '../../../../src/components/dashboard/Dashboard.js'
-
 
 describe('NoteCreateForm', () => {
     it('Test - POL render NoteCreateForm', ()=> {
        shallow(<Dashboard/>)
-
     })
 
     it('Test - NoteCreateForm onChange Handler', ()=> {
@@ -29,7 +25,6 @@ describe('NoteCreateForm', () => {
     })
 
     it('Test - NoteCreateForm onSubmit Handler', ()=> {
-        // specifically the id is present
         const e = {
             target : {
                 name : "title",

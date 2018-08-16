@@ -7,7 +7,6 @@ export default class NoteItem extends React.Component {
         this.editView = this.editView.bind(this)
     }
     removeItem(e) {
-        // e.preventDefault();
         let id = e.target.name
         this.props.removeNote(id);
     }
