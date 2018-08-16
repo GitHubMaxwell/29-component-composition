@@ -26,6 +26,11 @@ export default class Dashboard extends React.Component {
     }
 
     updateNote(e) {
+        console.log('name',e.target.name)
+        console.log('value',e.target.value)
+        console.log('type',e.target.type)
+
+
         const val = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
         this.setState({note: {...this.state.note,[e.target.name] : val}})
     }
@@ -81,6 +86,8 @@ export default class Dashboard extends React.Component {
     }
 
     removeNote(note) {
+        //could [...state.notes],filter
+        
         let newArr = [...this.state.notes]
         let index;
         for ( let i of this.state.notes) {

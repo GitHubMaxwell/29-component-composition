@@ -14,7 +14,9 @@ export default class NoteCreateForm extends React.Component {
     }
 
     handleChange(e) {
-        e.preventDefault()
+        // test saying that preventDefault() is not a function
+        // dont need it anyways because this isnt a submit action?
+        // e.preventDefault()
         this.props.updateNote(e)
     }
     render() {
