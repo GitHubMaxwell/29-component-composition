@@ -2,7 +2,7 @@ import React from 'react'
 import Dashboard from '../../../../src/components/dashboard/Dashboard.js'
 
 
-xdescribe('Dashboard', () => {
+describe('Dashboard', () => {
     it('Test - POL render Dashboard', ()=> {
        shallow(<Dashboard/>)
     })
